@@ -1,7 +1,72 @@
 import 'package:flutter/material.dart';
 import 'daily_practice_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  String _selectedTopic = "Topic: Alphabet";
+
+  void _showTopicDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Topics'),
+          content: Wrap(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  _selectTopic('Auto Select');
+                },
+                child: Text('Auto Select'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.grey,
+                  foregroundColor: Colors.black,
+                ),
+              ),
+              SizedBox(width: 10),
+              ElevatedButton(
+                onPressed: () {
+                  _selectTopic('Random Mix');
+                },
+                child: Text('Random Mix'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.grey,
+                  foregroundColor: Colors.black,
+                ),
+              ),
+              SizedBox(width: 10),
+              TextButton(onPressed: () { _selectTopic('Work'); }, child: Text('Work')),
+              TextButton(onPressed: () { _selectTopic('Cafe'); }, child: Text('Cafe')),
+              TextButton(onPressed: () { _selectTopic('School'); }, child: Text('School')),
+              TextButton(onPressed: () { _selectTopic('Life'); }, child: Text('Life')),
+              TextButton(onPressed: () { _selectTopic('Shopping'); }, child: Text('Shopping')),
+              TextButton(onPressed: () { _selectTopic('Activities'); }, child: Text('Activities')),
+            ],
+          ),
+          actions: [
+            TextButton(
+              child: Text('Close'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _selectTopic(String topic) {
+    setState(() {
+      _selectedTopic = 'Topic: $topic';
+    });
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,9 +146,13 @@ class HomePage extends StatelessWidget {
                     style: TextStyle(fontSize: 18),
                   ),
                   SizedBox(height: 10),
-                  Text(
-                    'Topic: Alphabet',
-                    style: TextStyle(fontSize: 16, backgroundColor: Colors.grey[300]),
+                  ElevatedButton(
+                    onPressed: _showTopicDialog,
+                    child: Text(_selectedTopic),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.grey,
+                      foregroundColor: Colors.black,
+                    ),
                   ),
                   SizedBox(height: 10),
                   ElevatedButton(
