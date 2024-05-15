@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'language_selection_page.dart';
 
 class NewUserPage extends StatefulWidget {
   @override
@@ -40,7 +41,10 @@ class _NewUserPageState extends State<NewUserPage> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Handle next step in registration
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LanguageSelectionPage()),
+                );
               },
               child: Text('Next'),
               style: ElevatedButton.styleFrom(fixedSize: Size(188, 47)),
