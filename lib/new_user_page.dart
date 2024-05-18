@@ -41,10 +41,12 @@ class _NewUserPageState extends State<NewUserPage> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
+                if(_nameController.text.isNotEmpty){
+                  Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => LanguageSelectionPage()),
                 );
+                }
               },
               child: Text('Next'),
               style: ElevatedButton.styleFrom(fixedSize: Size(188, 47)),

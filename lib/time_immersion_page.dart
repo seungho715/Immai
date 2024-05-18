@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:immai/home_page.dart';
 
 class TimeImmersionPage extends StatefulWidget {
   final String selectedLanguage;
@@ -101,7 +102,12 @@ class _TimeImmersionPageState extends State<TimeImmersionPage> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Handle next step in registration
+                if(_timeController.text.isNotEmpty){
+                  Navigator.push(
+                    context, 
+                    MaterialPageRoute(builder: (context) => HomePage(),),
+                  );
+                }
               },
               child: Text('Next'),
               style: ElevatedButton.styleFrom(fixedSize: Size(188, 47)),

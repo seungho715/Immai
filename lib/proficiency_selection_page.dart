@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:immai/time_immersion_page.dart';
 
 class ProficiencySelectionPage extends StatefulWidget {
   final String selectedLanguage;
@@ -82,7 +83,13 @@ class _ProficiencySelectionPageState extends State<ProficiencySelectionPage> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Handle next step in registration
+                if(_selectedProficiency != null && _selectedFluency != null) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => TimeImmersionPage(selectedLanguage: widget.selectedLanguage,),
+                    ),
+                  );
+                }
               },
               child: Text('Next'),
               style: ElevatedButton.styleFrom(fixedSize: Size(188, 47)),
