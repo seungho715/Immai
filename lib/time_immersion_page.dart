@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:immai/home_page.dart';
+import 'home_page.dart';
+import 'assessment_first_page.dart';
 
 class TimeImmersionPage extends StatefulWidget {
   final String selectedLanguage;
+  final String selectedProficiency;
 
-  TimeImmersionPage({required this.selectedLanguage});
+  TimeImmersionPage({required this.selectedLanguage, required this.selectedProficiency});
 
   @override
   _TimeImmersionPageState createState() => _TimeImmersionPageState();
@@ -102,11 +104,22 @@ class _TimeImmersionPageState extends State<TimeImmersionPage> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                if(_timeController.text.isNotEmpty){
-                  Navigator.push(
-                    context, 
-                    MaterialPageRoute(builder: (context) => HomePage(),),
-                  );
+                if (_timeController.text.isNotEmpty) {
+                  if (widget.selectedProficiency == 'Beginner') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomePage(),
+                      ),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AssessmentFirstPage(),
+                      ),
+                    );
+                  }
                 }
               },
               child: Text('Next'),

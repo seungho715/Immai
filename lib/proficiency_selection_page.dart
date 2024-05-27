@@ -86,7 +86,7 @@ class _ProficiencySelectionPageState extends State<ProficiencySelectionPage> {
                 if(_selectedProficiency != null && _selectedFluency != null) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => TimeImmersionPage(selectedLanguage: widget.selectedLanguage,),
+                    MaterialPageRoute(builder: (context) => TimeImmersionPage(selectedLanguage: widget.selectedLanguage,selectedProficiency: _selectedProficiency!,),
                     ),
                   );
                 }
