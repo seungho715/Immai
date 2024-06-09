@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
+import 'writing_second_page.dart';
 
 class WritingPage extends StatefulWidget {
   @override
@@ -9,6 +11,17 @@ class _WritingPageState extends State<WritingPage> {
   bool _showKeyboard = false;
   List<String> _words = ['I', 'am', 'a', 'baguette'];
   List<String> _sentence = ['', '', '', ''];
+  List<String> _shuffledWords = [];
+  int _currentIndex = -1;
+  TextEditingController _textController = TextEditingController();
+  String _feedbackMessage = '';
+  Color _feedbackColor = Colors.transparent;
+
+  @override
+  void initState() {
+    super.initState();
+    _shuffledWords = List.from(_words)..shuffle(Random());
+  }
 
   void _toggleKeyboard() {
     setState(() {
@@ -20,6 +33,49 @@ class _WritingPageState extends State<WritingPage> {
     setState(() {
       _sentence[index] = word;
     });
+  }
+
+  void _handleTap(int index) {
+    setState(() {
+      _currentIndex = index;
+      _textController.text = _sentence[index];
+      _showKeyboard = true;
+    });
+  }
+
+  void _handleTextChange(String value) {
+    if (_currentIndex != -1) {
+      setState(() {
+        _sentence[_currentIndex] = value;
+      });
+    }
+  }
+
+  void _checkAnswer() {
+    setState(() {
+      if (_sentence.join(' ') == 'I am a baguette') {
+        _feedbackMessage = 'Correct!';
+        _feedbackColor = Colors.green;
+      } else {
+        _feedbackMessage = 'Close but not quite\nCorrect answer: I am a baguette';
+        _feedbackColor = Colors.red;
+      }
+    });
+  }
+
+  void _reset() {
+    setState(() {
+      _sentence = ['', '', '', ''];
+      _shuffledWords.shuffle(Random());
+      _feedbackMessage = '';
+      _feedbackColor = Colors.transparent;
+      _showKeyboard = false;
+      _currentIndex = -1;
+    });
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => WritingSecondPage()),
+    );
   }
 
   @override
@@ -45,13 +101,21 @@ class _WritingPageState extends State<WritingPage> {
             ),
             SizedBox(height: 20),
             Text(
-              'Je suis un baguette',
+              'Je suis une baguette',
               style: TextStyle(fontSize: 24),
             ),
             SizedBox(height: 20),
             if (_showKeyboard)
               TextField(
+                controller: _textController,
                 autofocus: true,
+                onChanged: _handleTextChange,
+                onSubmitted: (_) {
+                  setState(() {
+                    _showKeyboard = false;
+                    _currentIndex = -1;
+                  });
+                },
               ),
             if (!_showKeyboard) ...[
               Row(
@@ -61,16 +125,19 @@ class _WritingPageState extends State<WritingPage> {
                   String word = entry.value;
                   return DragTarget<String>(
                     builder: (context, candidateData, rejectedData) {
-                      return Container(
-                        margin: EdgeInsets.all(4.0),
-                        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        child: Text(
-                          word,
-                          style: TextStyle(fontSize: 18),
+                      return GestureDetector(
+                        onTap: () => _handleTap(index),
+                        child: Container(
+                          margin: EdgeInsets.all(4.0),
+                          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: Text(
+                            word,
+                            style: TextStyle(fontSize: 18),
+                          ),
                         ),
                       );
                     },
@@ -84,7 +151,7 @@ class _WritingPageState extends State<WritingPage> {
               Wrap(
                 alignment: WrapAlignment.center,
                 spacing: 10,
-                children: _words.map((word) {
+                children: _shuffledWords.map((word) {
                   return Draggable<String>(
                     data: word,
                     child: Container(
@@ -132,18 +199,46 @@ class _WritingPageState extends State<WritingPage> {
               SizedBox(height: 20),
             ],
             ElevatedButton(
-              onPressed: () {
-                // Handle Check button press
-              },
+              onPressed: _checkAnswer,
               child: Text('Check'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.grey,
                 foregroundColor: Colors.black,
               ),
             ),
+            if (_feedbackMessage.isNotEmpty) ...[
+              SizedBox(height: 20),
+              Container(
+                padding: EdgeInsets.all(16.0),
+                color: _feedbackColor,
+                child: Text(
+                  _feedbackMessage,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _reset,
+                child: Text('Next'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.grey,
+                  foregroundColor: Colors.black,
+                ),
+              ),
+            ],
           ],
         ),
       ),
     );
   }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: WritingPage(),
+  ));
 }

@@ -74,197 +74,223 @@ class _HomePageState extends State<HomePage> {
         title: Text('Homepage'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 20,
-                      child: Text('J'),
-                    ),
-                    SizedBox(width: 10),
-                    Row(
-                      children: [
-                        Container(
-                          width: 50,
-                          height: 10,
-                          color: Colors.blue,
-                        ),
-                        Container(
-                          width: 50,
-                          height: 10,
-                          color: Colors.green,
-                        ),
-                        Container(
-                          width: 50,
-                          height: 10,
-                          color: Colors.red,
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: 10),
-                    Text('20'),
-                  ],
-                ),
-                SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        // Handle Past Exercises button press
-                      },
-                      child: Text('Past Exercises'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.grey,
-                        foregroundColor: Colors.black,
-                      ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        // Handle Word Deck button press
-                      },
-                      child: Text('Word Deck'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.grey,
-                        foregroundColor: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20),
-                Container(
-                  color: Colors.amber[100],
-                  padding: EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+        padding: EdgeInsets.all(8.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    radius: 20,
+                    child: Text('J'),
+                  ),
+                  SizedBox(width: 10),
+                  Row(
                     children: [
-                      Text(
-                        'Daily Practice Set',
-                        style: TextStyle(fontSize: 18),
+                      Container(
+                        width: 50,
+                        height: 10,
+                        color: Colors.blue,
                       ),
-                      SizedBox(height: 10),
-                      ElevatedButton(
-                        onPressed: _showTopicDialog,
-                        child: Text(_selectedTopic),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey,
-                          foregroundColor: Colors.black,
-                        ),
+                      Container(
+                        width: 50,
+                        height: 10,
+                        color: Colors.green,
                       ),
-                      SizedBox(height: 10),
-                      ElevatedButton(
-                        onPressed: () {
-                          // Handle Vocab button press
-                        },
-                        child: Text('Vocab'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey,
-                          foregroundColor: Colors.black,
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      ElevatedButton(
-                        onPressed: () {
-                          // Handle Trivia button press
-                        },
-                        child: Text('Trivia'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey,
-                          foregroundColor: Colors.black,
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => DailyPracticePage()),
-                          );
-                        },
-                        child: Text('Practice'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
-                          foregroundColor: Colors.white,
-                        ),
+                      Container(
+                        width: 50,
+                        height: 10,
+                        color: Colors.red,
                       ),
                     ],
                   ),
-                ),
-                SizedBox(height: 20),
-                Container(
-                  color: Colors.amber[100],
-                  padding: EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Extra Exercises',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      SizedBox(height: 10),
-                      ElevatedButton(
-                        onPressed: () {
-                          // Handle Chatting button press
-                        },
-                        child: Text('Chatting'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey,
-                          foregroundColor: Colors.black,
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      ElevatedButton(
-                        onPressed: () {
-                          // Handle Karaoke button press
-                        },
-                        child: Text('Karaoke'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey,
-                          foregroundColor: Colors.black,
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      ElevatedButton(
-                        onPressed: () {
-                          // Handle Writing Practice button press
-                        },
-                        child: Text('Writing Practice'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey,
-                          foregroundColor: Colors.black,
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      ElevatedButton(
-                        onPressed: () {
-                          // Handle News Flash button press
-                        },
-                        child: Text('News Flash'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey,
-                          foregroundColor: Colors.black,
-                        ),
-                      ),
-                    ],
+                  SizedBox(width: 10),
+                  Text('20'),
+                ],
+              ),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      // Handle Past Exercises button press
+                    },
+                    child: Text('Past Exercises'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.grey,
+                      foregroundColor: Colors.black,
+                      shape: StadiumBorder(),
+                    ),
                   ),
-                ),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  ElevatedButton(
+                    onPressed: () {
+                      // Handle Word Deck button press
+                    },
+                    child: Text('Word Deck'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.grey,
+                      foregroundColor: Colors.black,
+                      shape: StadiumBorder(),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              Container(
+                color: Colors.amber[100],
+                padding: EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    IconButton(
+                    Text(
+                      'Topic Study',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: _showTopicDialog,
+                      child: Text(_selectedTopic),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey[200],
+                        foregroundColor: Colors.black,
+                        shape: StadiumBorder(),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                        // Handle Vocab button press
+                      },
+                      child: Text('Vocab'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey[200],
+                        foregroundColor: Colors.black,
+                        shape: StadiumBorder(),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                        // Handle Trivia button press
+                      },
+                      child: Text('Trivia'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey[200],
+                        foregroundColor: Colors.black,
+                        shape: StadiumBorder(),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => DailyPracticePage()),
+                        );
+                      },
+                      child: Text('Practice'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        foregroundColor: Colors.white,
+                        shape: StadiumBorder(),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: () {
+                  // Handle Daily Practice button press
+                },
+                child: Text('Daily Practice'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue[200],
+                  foregroundColor: Colors.black,
+                  shape: StadiumBorder(),
+                ),
+              ),
+              SizedBox(height: 10),
+              Container(
+                color: Colors.amber[100],
+                padding: EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Extra Exercises',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                        // Handle Chatting button press
+                      },
+                      child: Text('Chatting'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey[200],
+                        foregroundColor: Colors.black,
+                        shape: StadiumBorder(),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                        // Handle Karaoke button press
+                      },
+                      child: Text('Karaoke'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey[200],
+                        foregroundColor: Colors.black,
+                        shape: StadiumBorder(),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                        // Handle Writing Practice button press
+                      },
+                      child: Text('Writing Practice'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey[200],
+                        foregroundColor: Colors.black,
+                        shape: StadiumBorder(),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                        // Handle News Flash button press
+                      },
+                      child: Text('News Flash'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey[200],
+                        foregroundColor: Colors.black,
+                        shape: StadiumBorder(),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    color: Colors.grey,
+                    child: IconButton(
                       onPressed: () {
                         // Handle Menu button press
                       },
                       icon: Icon(Icons.menu),
                     ),
-                    ElevatedButton(
+                  ),
+                  Container(
+                    color: Colors.grey,
+                    child: ElevatedButton(
                       onPressed: () {
                         // Handle Translator button press
                       },
@@ -272,9 +298,13 @@ class _HomePageState extends State<HomePage> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.grey,
                         foregroundColor: Colors.black,
+                        shape: StadiumBorder(),
                       ),
                     ),
-                    ElevatedButton(
+                  ),
+                  Container(
+                    color: Colors.grey,
+                    child: ElevatedButton(
                       onPressed: () {
                         // Handle Grammar button press
                       },
@@ -282,15 +312,22 @@ class _HomePageState extends State<HomePage> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.grey,
                         foregroundColor: Colors.black,
+                        shape: StadiumBorder(),
                       ),
                     ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
     );
   }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: HomePage(),
+  ));
 }

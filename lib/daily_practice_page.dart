@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'writing_page.dart';
+import 'writing_first_page.dart';
 
 class DailyPracticePage extends StatelessWidget {
   @override
