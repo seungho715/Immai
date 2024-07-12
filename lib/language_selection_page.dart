@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'proficiency_selection_page.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class LanguageSelectionPage extends StatefulWidget {
   @override
@@ -10,6 +12,29 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
   String? _selectedLearningLanguage;
   String? _selectedNativeLanguage;
   final List<String> _languages = ['French', 'German', 'Spanish', 'Chinese'];
+
+  Future<void> sendLanguageToBackend() async {
+    final url = Uri.parse('http://localhost:3001/languages');
+    print('Sending data to $url');
+    print('Learning Language: $_selectedLearningLanguage, Native Language: $_selectedNativeLanguage');
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({
+        'learningLanguage': _selectedLearningLanguage,
+        'nativeLanguage': _selectedNativeLanguage,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      print('Languages sent successfully');
+    } else {
+      print('Failed to send languages. Status code: ${response.statusCode}');
+      print('Response body: ${response.body}');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,8 +97,9 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
-                if (_selectedLearningLanguage != null) {
+              onPressed: () async {
+                if (_selectedLearningLanguage != null && _selectedNativeLanguage != null) {
+                  await sendLanguageToBackend();
                   Navigator.push(
                     context,
                     MaterialPageRoute(
