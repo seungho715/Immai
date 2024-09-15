@@ -43,40 +43,76 @@ class _NewUserPageState extends State<NewUserPage> {
   }
 
   // Function to handle the Next button press
-  Future<void> _handleNextButton() async {
-    if (_isNextButtonEnabled) {
-      final usernameExists = await _checkUsernameExists(_usernameController.text);
+ // Function to register a new user
+Future<void> _registerUser() async {
+  final url = Uri.parse('http://localhost:3001/api/register'); // Your backend URL
+  try {
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({
+        'firstName': _firstNameController.text,
+        'lastName': _lastNameController.text,
+        'username': _usernameController.text,
+        'password': _passwordController.text,
+        'email': _emailController.text,
+      }),
+    );
 
-      if (usernameExists) {
-        // Show a popup if the username exists
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Username already exists'),
-              content: Text('The username "${_usernameController.text}" is already taken.'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('OK'),
-                ),
-              ],
-            );
-          },
-        );
-      } else {
-        // If the username does not exist, navigate to the LanguageSelectionPage
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => LanguageSelectionPage(),
-          ),
-        );
-      }
+    if (response.statusCode == 200) {
+      // Successfully registered, proceed to next page
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => LanguageSelectionPage()),
+      );
+    } else if (response.statusCode == 409) {
+      // Username exists
+      setState(() {
+        _errorMessage = jsonDecode(response.body)['error'];
+      });
+    } else {
+      // Other error
+      setState(() {
+        _errorMessage = 'Failed to register user';
+      });
     }
+  } catch (error) {
+    setState(() {
+      _errorMessage = 'Error connecting to server: $error';
+    });
   }
+}
+
+Future<void> _handleNextButton() async {
+  final usernameExists = await _checkUsernameExists(_usernameController.text);
+
+  if (usernameExists) {
+    // Show popup if the username exists
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Username already exists'),
+          content: Text('The username "${_usernameController.text}" is already taken.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  } else {
+    // Call the registration function to submit data to the backend
+    await _registerUser();
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {
