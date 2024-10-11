@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert'; // For jsonEncode
 import 'package:immai/time_immersion_page.dart';
 
 class ProficiencySelectionPage extends StatefulWidget {
@@ -15,6 +17,36 @@ class _ProficiencySelectionPageState extends State<ProficiencySelectionPage> {
   String? _selectedFluency;
   final List<String> _proficiencies = ['Beginner', 'Proficient', 'Advanced', 'Expert'];
   final List<String> _fluencies = ['Tourist/Casual', 'Daily Life/Conversational', 'Native Speaker/Fluent'];
+
+  Future<void> sendProficiencies() async {
+    final response = await http.post(
+      Uri.parse('http://localhost:3001/proficiencies'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'selectedLanguage': widget.selectedLanguage,
+        'currentProficiency': _selectedProficiency!,
+        'targetFluency': _selectedFluency!,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      // If the server returns a 200 OK response, you can navigate to the next page
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => TimeImmersionPage(
+            selectedLanguage: widget.selectedLanguage,
+            selectedProficiency: _selectedProficiency!,
+          ),
+        ),
+      );
+    } else {
+      // If the server did not return a 200 OK response, throw an exception.
+      throw Exception('Failed to send proficiencies');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,12 +115,8 @@ class _ProficiencySelectionPageState extends State<ProficiencySelectionPage> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                if(_selectedProficiency != null && _selectedFluency != null) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => TimeImmersionPage(selectedLanguage: widget.selectedLanguage,selectedProficiency: _selectedProficiency!,),
-                    ),
-                  );
+                if (_selectedProficiency != null && _selectedFluency != null) {
+                  sendProficiencies();
                 }
               },
               child: Text('Next'),
