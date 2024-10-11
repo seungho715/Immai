@@ -30,6 +30,7 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
 
     if (response.statusCode == 200) {
       print('Languages sent successfully');
+      print(response.body);
     } else {
       print('Failed to send languages. Status code: ${response.statusCode}');
       print('Response body: ${response.body}');

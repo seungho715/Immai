@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'welcome_page.dart';
+//import 'welcome_page.dart';
+import 'map_test.dart';
 
 void main() {
   runApp(ImmaiApp());
@@ -10,7 +11,7 @@ class ImmaiApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Immai',
-      home: WelcomePage(),
+      home: MapTest(),
     );
   }
 }
